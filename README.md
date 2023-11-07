@@ -1,5 +1,11 @@
 # GDSC_AI
 
+實作一個手寫辨識！可以辨識自己寫的數字
+
+* Demo
+
+![image](https://github.com/yuchen170/GDSC_AI/assets/89153252/8a809369-8dcb-40d9-bd38-9f8cd9405ceb)
+
 ## Step 0
 * 註冊&登入 Google Colab (共編、不用設定環境、免費！)
   [Google Colab](https://colab.research.google.com/)
