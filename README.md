@@ -16,6 +16,7 @@
 * 1.1 import libraries
 ```
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten #一些模型內會用到的layer
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau #回調函數
 from keras.models import Sequential #順序模型
 import matplotlib.pyplot as plt # 畫圖用的
 import tensorflow as tf # tensorflow!
