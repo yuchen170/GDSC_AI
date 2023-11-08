@@ -43,8 +43,8 @@ print(class_counts) # 各類別的資料筆數
 ## Step 3 切分資料集
 ```
 # 比例依據不同大小的數據適合的不一樣，通常會讓train的比例在0.7~0.8
-train_data = data.head(int(len(reduced_data)*[比例]))
-val_data = data.tail(int(len(reduced_data)*[比例])) 
+train_data = data.head(int(len(reduced_data)*比例))
+val_data = data.tail(int(len(reduced_data)*比例)) 
 
 train_labels = train_data.pop('label')
 val_labels = val_data.pop('label')
@@ -62,8 +62,8 @@ tf_val_data = tf.data.Dataset.from_tensor_slices((val_data.values, val_labels.va
 * 5.1 調整圖片大小並縮小pixel值到0,1區間
 ```
 def preprocess_image(image, label):
-    image = tf.reshape(image, [[長], [寬], [頻帶數]]) #調整大小為28*28*1
-    image = tf.cast(image, tf.float32) / [縮小倍數]. #把pixel值縮小到[0,1]區間
+    image = tf.reshape(image, [長, 寬, 頻帶數]) #調整大小為28*28*1
+    image = tf.cast(image, tf.float32) / 縮小倍數. #把pixel值縮小到[0,1]區間，pixel值是0-255，所以要縮小255倍！
 
     return image, label
 
@@ -75,8 +75,8 @@ tf_val_data = tf_val_data.map(preprocess_image)
 * 5.2 打亂數據順序並預先讀取資料
 ```
 def pipeline(tf_data):
-    tf_data = tf_data.shuffle([一次打亂的數據量]) #洗牌打亂數據,一次放100個進buffer
-    tf_data = tf_data.batch([一個batch的數據量]) #一個batch包32個數據
+    tf_data = tf_data.shuffle(一次打亂的數據量) #洗牌打亂數據,一次放100個進buffer
+    tf_data = tf_data.batch(一個batch的數據量) #一個batch包32個數據
     tf_data = tf_data.prefetch(tf.data.experimental.AUTOTUNE) #在訓練前先讀取資料
 
     return tf_data
@@ -88,14 +88,14 @@ tf_val_data = pipeline(tf_val_data)
 ## Step 6 定義模型 (LeNet)
 ```
 model = Sequential()
-model.add(Conv2D([個數], ([長], [寬]), activation='relu', padding='same', input_shape=([長], [寬], [頻帶數])))  #卷積層，用6個大小為5*5的filter，在模型的第一層需要指定輸入的大小
+model.add(Conv2D(個數, (長, 寬), activation='relu', padding='same', input_shape=(長, 寬, 頻帶數)))  #卷積層，用6個大小為5*5的filter，在模型的第一層需要指定輸入的大小
 model.add(MaxPooling2D((2, 2))) # 池化層，用2*2的窗格
 model.add(Conv2D(16, (5, 5), activation='relu', padding='valid'))
 model.add(MaxPooling2D((2, 2))) #池化層，用2*2的窗格
 model.add(Flatten()) #將數據展平成一維才能輸入全連接層
-model.add(Dense([神經元個數], activation='relu')) #全連接層，120個神經元
-model.add(Dense([神經元個數], activation='relu')) #全連接層，84個神經元
-model.add(Dense([神經元個數], activation='softmax')) #輸出層，10個神經元，softmax會將每個類別轉為機率
+model.add(Dense(神經元個數, activation='relu')) #全連接層，120個神經元
+model.add(Dense(神經元個數, activation='relu')) #全連接層，84個神經元
+model.add(Dense(神經元個數, activation='softmax')) #輸出層，10個神經元，softmax會將每個類別轉為機率
 ```
 
 ## Step 7 Compile
