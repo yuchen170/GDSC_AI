@@ -74,7 +74,7 @@ tf_val_data = tf_val_data.map(preprocess_image)
 * 5.2 打亂數據順序並預先讀取資料
 ```
 def pipeline(tf_data):
-    tf_data = tf_data.shuffle([一次打亂的數據量]) #洗牌打亂數據
+    tf_data = tf_data.shuffle([一次打亂的數據量]) #洗牌打亂數據,一次放100個進buffer
     tf_data = tf_data.batch([一個batch的數據量]) #一個batch包32個數據
     tf_data = tf_data.prefetch(tf.data.experimental.AUTOTUNE) #在訓練前先讀取資料
 
