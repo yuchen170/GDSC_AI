@@ -11,6 +11,7 @@
   [Google Colab](https://colab.research.google.com/)
 * 註冊&登入 Kaggle (很多資料集跟比賽可以練功、免費！)
   [Kaggle](https://www.kaggle.com/)
+* 用colab打開GDSC_AI社課.ipynb檔
 
 ## Step 1 一些設定
 * 1.1 import libraries
